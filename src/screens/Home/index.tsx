@@ -114,13 +114,6 @@ export function Home() {
         <Logo />
         <View style={styles.headerOptions}>
           <Stroke />
-
-          {/* <Button
-            title="teste"
-            onPress={() => {
-              window.location.href = "../Messages";
-            }}
-          /> */}
           <Message />
         </View>
       </View>
@@ -276,17 +269,22 @@ export function Home() {
                 horizontal={true}
                 data={Suggested}
                 keyExtractor={(item) => item.id}
-                renderItem={(item) => (
-                  <View style={styles.suggestedContentCard} key={item.item.id}>
+                renderItem={({ item, index }) => (
+                  <View
+                    style={{
+                      ...styles.suggestedContentCard,
+                      marginLeft: index === 0 ? 18 : 0,
+                      marginRight: index === 3 ? 18 : 10,
+                    }}
+                    key={item.id}
+                  >
                     <Image
                       style={styles.suggestedContentImage}
-                      source={item.item.photoURL}
+                      source={item.photoURL}
                     />
-                    <Text style={styles.suggestedContentText}>
-                      {item.item.name}
-                    </Text>
+                    <Text style={styles.suggestedContentText}>{item.name}</Text>
                     <Text style={styles.suggestedContentTextDescription}>
-                      {item.item.description}
+                      {item.description}
                     </Text>
                     <TouchableOpacity style={styles.suggestedContentButton}>
                       <Text style={styles.suggestedContentButtonText}>
@@ -601,8 +599,6 @@ const styles = StyleSheet.create({
     width: 202,
     height: 254,
     padding: 14,
-    marginLeft: 20,
-    // marginRight: 15,
     alignItems: "center",
     borderRadius: 10,
     backgroundColor: "#1c1c1c",
